@@ -289,17 +289,14 @@ type RuleName = FastString
 \begin{code}
 ------------------------
 data Fixity = Fixity Int FixityDirection
-  deriving (Data, Typeable)
+  deriving (Eq, Ord, Data, Typeable)
 
 instance Outputable Fixity where
     ppr (Fixity prec dir) = hcat [ppr dir, space, int prec]
 
-instance Eq Fixity where -- Used to determine if two fixities conflict
-  (Fixity p1 dir1) == (Fixity p2 dir2) = p1==p2 && dir1 == dir2
-
 ------------------------
 data FixityDirection = InfixL | InfixR | InfixN
-                     deriving (Eq, Data, Typeable)
+                     deriving (Eq, Ord, Data, Typeable)
 
 instance Outputable FixityDirection where
     ppr InfixL = ptext (sLit "infixl")
